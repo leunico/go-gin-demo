@@ -1,5 +1,10 @@
 package models
 
+const (
+	// 考前
+    TENCENT_FACE_TYPE_BEFORE = 2
+)
+
 type ExamineeTencentFace struct {
     Model
 

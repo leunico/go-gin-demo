@@ -112,8 +112,9 @@ func GetExaminationExamineeDetail(maps interface {}) (ExaminationExamineeDetail,
 				Where("category in (?)", []int8{CATEGORY_OFFLINE, CATEGORY_EXAM_READ})
 		}).
 		First(&eexaminee).Error
+
 	// if err != nil && err != gorm.ErrRecordNotFound {
-	// 	return nil, err
+	// 	return flase, err
 	// }
 
     return eexaminee, err
