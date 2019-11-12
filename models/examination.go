@@ -10,7 +10,10 @@ const (
 	// 考试发布状态
 	STATUS_EXAMINATION = 2
 	// 考试发布成绩状态
-    STATUS_ACHIEVEMENT = 3
+	STATUS_ACHIEVEMENT = 3
+	
+	// 考试确认
+	EXAMINATION_EXAMINEE_STATUS_OK = 1
 )
 
 // type Examination struct {

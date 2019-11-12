@@ -4,7 +4,7 @@ go 1.13
 
 require (
 	github.com/astaxie/beego v1.12.0
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/gin-gonic/gin v1.4.0
 	github.com/go-ini/ini v1.48.0
@@ -15,6 +15,7 @@ require (
 	github.com/mattn/go-isatty v0.0.10 // indirect
 	github.com/ugorji/go v1.1.7 // indirect
 	github.com/unknwon/com v1.0.1
+	golang.org/x/crypto v0.0.0-20191105034135-c7e5f84aec59
 	golang.org/x/sys v0.0.0-20191010194322-b09406accb47 // indirect
 	google.golang.org/appengine v1.6.5 // indirect
 	gopkg.in/ini.v1 v1.49.0 // indirect
