@@ -24,7 +24,7 @@ func InitRouter() *gin.Engine {
     })
     
     // login
-    r.POST("/auth", api.GetAuth)
+    r.POST("/api/examinee/login", api.GetAuth)
 
     apiv1 := r.Group("/api/v1")
 	apiv1.Use(jwt.JWT())
@@ -32,7 +32,7 @@ func InitRouter() *gin.Engine {
         // 考试详情
         apiv1.GET("/:admissionTicket/testing", v1.GetExaminationExamineeDetail)
     }
-    
+
     // apiv1 := r.Group("/api/v1")
     // {
     //     // 考试详情
