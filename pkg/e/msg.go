@@ -4,6 +4,7 @@ var MsgFlags = map[int]string {
     SUCCESS: "ok",
     ERROR: "服务器错误",
     INVALID_PARAMS: "请求参数错误",
+    INVALID_AUTH_PARAMS: "Auth参数错误",
 
     ERROR_NOT_EXIST_EXAMTESTING: "该考试不存在",
     ERROR_NOT_EXIST_EXAMTESTING_EXAMINEE: "账号或者考试不存在",

@@ -63,7 +63,8 @@ func GetAuth(c *gin.Context) {
 		return
 	}
 
-	r.Response(http.StatusOK, e.SUCCESS, map[string]string{
-		"token": token,
+	r.ResponseE(http.StatusOK, e.SUCCESS, map[string]string{
+		"access_token": token,
+		"token_type": "bearer",
 	})
 }
