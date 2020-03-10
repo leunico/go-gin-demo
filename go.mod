@@ -27,6 +27,7 @@ replace (
 	git.codepku.com/examinate/exam/middleware => /Users/lizhixin/go/src/projects/middleware
 	git.codepku.com/examinate/exam/models => /Users/lizhixin/go/src/projects/exam/models
 	git.codepku.com/examinate/exam/pkg/app => /Users/lizhixin/go/src/projects/exam/pkg/app
+	git.codepku.com/examinate/exam/pkg/auth => /Users/lizhixin/go/src/projects/exam/pkg/auth
 	git.codepku.com/examinate/exam/pkg/e => /Users/lizhixin/go/src/projects/exam/pkg/e
 	git.codepku.com/examinate/exam/pkg/file => /Users/lizhixin/go/src/projects/exam/pkg/file
 	git.codepku.com/examinate/exam/pkg/logging => /Users/lizhixin/go/src/projects/exam/pkg/logging

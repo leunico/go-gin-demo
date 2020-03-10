@@ -1,7 +1,7 @@
 package v1
 
 import (
-    // "fmt"
+    "fmt"
     // "log"
     "time"
     "net/http"
@@ -20,6 +20,8 @@ import (
 
 // 获取考试详情页面
 func GetExaminationExamineeDetail(c *gin.Context) {
+    u, _ := c.Get("authUser")
+    fmt.Print(u.ID)
     r := app.Gin{C: c}
     maps := make(map[string]interface{})
     maps["admission_ticket"] = com.StrTo(c.Param("admissionTicket")).MustInt()

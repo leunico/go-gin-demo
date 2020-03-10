@@ -20,26 +20,28 @@ type Examinees struct {
 }
 
 // CheckAuth checks if authentication information exists
-func CheckAuth(certificates, admission_ticket, password string, category uint8) (bool, error) {
+func CheckAuth(certificates, admission_ticket, password string, category uint8) (*Examinees, error) {
 	var auth Examinees
 	if (category == EXAMINEE_CERTIFICATE_CGK) {
-		return false, nil
+		return nil, nil
 	}
 
-	err := db.Select("examinees.id,examinees.password,examination_examinees.id as examination_examinee_id").
+	err := db.Select([]string{"examinees.id",
+		"examinees.password",
+		"examination_examinees.id as examination_examinee_id"}).
 		Joins("left join examination_examinees on examination_examinees.examinee_id = examinees.id").
 		Where(Examinees{Certificates: certificates, CertificateType: category}).
 		Where("examination_examinees.admission_ticket = ?", admission_ticket).
 		Where("examination_examinees.status = ?", EXAMINATION_EXAMINEE_STATUS_OK).
 		First(&auth).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return false, err
+		return nil, err
 	}
 
     err = bcrypt.CompareHashAndPassword([]byte(auth.Password), []byte(password))
 	if auth.ID > 0 && err == nil {
-		return true, nil
+		return &auth, nil
 	}
 
-	return false, nil
+	return nil, err
 }

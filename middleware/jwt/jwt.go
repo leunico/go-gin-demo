@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"git.codepku.com/examinate/exam/pkg/e"
-	"git.codepku.com/examinate/exam/pkg/util"
+	"git.codepku.com/examinate/exam/pkg/auth"
 )
 
 // JWT is jwt middleware
@@ -26,7 +26,7 @@ func JWT() gin.HandlerFunc {
 			if token == "" {
 				code = e.INVALID_AUTH_PARAMS
 			} else {
-				_, err := util.ParseToken(token)
+				claims, err := auth.ParseToken(token)
 				if err != nil {
 					switch err.(*jwt.ValidationError).Errors {
 					case jwt.ValidationErrorExpired:
@@ -34,6 +34,8 @@ func JWT() gin.HandlerFunc {
 					default:
 						code = e.ERROR_AUTH_CHECK_TOKEN_FAIL
 					}
+				} else {
+					c.Set("authUser", *claims.Examinees)
 				}
 			}
 		}

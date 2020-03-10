@@ -9,11 +9,11 @@ import (
 
 	"git.codepku.com/examinate/exam/pkg/app"
 	"git.codepku.com/examinate/exam/pkg/e"
-	"git.codepku.com/examinate/exam/pkg/util"
+	"git.codepku.com/examinate/exam/pkg/auth"
 	"git.codepku.com/examinate/exam/models"
 )
 
-type auth struct {
+type credentials struct {
 	Certificates string `valid:"Required; MaxSize(50)"`
 	Password string `valid:"Required; MaxSize(50)"`
 	AdmissionTicket string `valid:"Required; MaxSize(50)`
@@ -38,7 +38,7 @@ func GetAuth(c *gin.Context) {
 	category := com.StrTo(c.Query("type")).MustUint8()
 	admissionTicket := c.Query("admission_ticket")
 
-	a := auth{Certificates: certificates, Password: password, AdmissionTicket: admissionTicket, Category: category}
+	a := credentials{Certificates: certificates, Password: password, AdmissionTicket: admissionTicket, Category: category}
 	ok, _ := valid.Valid(&a)
 	if !ok {
 		app.MarkErrors(valid.Errors)
@@ -46,18 +46,18 @@ func GetAuth(c *gin.Context) {
 		return
 	}
 
-	isExist, err := models.CheckAuth(certificates, admissionTicket, password, category)
+	isAuth, err := models.CheckAuth(certificates, admissionTicket, password, category)
 	if err != nil {
 		r.Response(http.StatusInternalServerError, e.ERROR_NOT_EXIST_EXAMTESTING_EXAMINEE, nil)
 		return
 	}
 
-	if !isExist {
+	if isAuth == nil {
 		r.Response(http.StatusUnauthorized, e.ERROR_PASSWORD_LOGIN, nil)
 		return
 	}
 
-	token, err := util.GenerateToken(certificates, password)
+	token, err := auth.GenerateToken(isAuth)
 	if err != nil {
 		r.Response(http.StatusInternalServerError, e.ERROR_AUTH_TOKEN, nil)
 		return
