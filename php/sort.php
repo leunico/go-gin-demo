@@ -194,5 +194,27 @@ function efcz2($arr, $low, $top, $target)
     }
     return -1;
 }
+
+$c = [4,2,5,2,4,7,8,8,7];
 // var_dump(sizeof($a), count($a));
-var_dump(efcz2($a, 0, sizeof($a), 10));
+// var_dump(efcz2($a, 0, sizeof($a), 10));
+var_dump(singleNumber($c));
+
+/*
+int(4)
+int(6)
+int(3)
+int(1)
+int(5)
+int(5)
+ */
+function singleNumber($arr) 
+{
+    $res = 0;
+    foreach ($arr as $value) {
+        $res = $res ^ $value;
+        var_dump($res);
+    }
+    
+    return $res;
+}
