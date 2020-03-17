@@ -88,18 +88,18 @@ function szz($a, $b)
     $i = $j = $k = 0;
     while (isset($a[$i]) && isset($b[$j])) {
         if ($a[$i] > $b[$j]) {
-            $arr[$k++] = $b[$j++];
+            $arr[] = $b[$j++];
         } else {
-            $arr[$k++] = $a[$i++];
+            $arr[] = $a[$i++];
         }
     }
 
     while (isset($a[$i])) {
-        $arr[$k++] = $a[$i++];
+        $arr[] = $a[$i++];
     }
 
     while (isset($b[$j])) {
-        $arr[$k++] = $b[$j++];
+        $arr[] = $b[$j++];
     }
     return $arr;
 }
@@ -107,8 +107,9 @@ function szz($a, $b)
 $a = [2,4,8,10,11,17,18];
 $b = [1,3,12,20,25];
 
-var_dump(szz($a, $b));
+// var_dump(szz($a, $b));
 // var_dump(kuaishu($sortarr));
+// new MergeSort($sortarr);
 
 class MergeSort
 {
@@ -128,5 +129,70 @@ class MergeSort
         }
     }
 
-    
+    public function mergeArray(&$arr, $left, $cet, $right)
+    {
+        echo '| ' . $left . ' - ' . $cet . ' - ' . $right . ' - ' . implode(',', $arr) . PHP_EOL;
+        $a_i = $left;
+        $b_i = $cet + 1;
+        $temp = [];
+
+        while ($a_i <= $cet && $b_i <= $right)
+        {
+            if ($arr[$a_i] > $arr[$b_i]) {
+                $temp[] = $arr[$b_i++];
+            } else {
+                $temp[] = $arr[$a_i++];
+            }
+        }
+
+        while ($a_i <= $cet) 
+        {
+            $temp[] = $arr[$a_i++];
+        }
+
+        while ($b_i <= $right) 
+        {
+            $temp[] = $arr[$b_i++];
+        }
+var_dump($temp);
+        for ($i=0; $i < count($temp); $i++) { 
+            $arr[$left + $i] = $temp[$i];
+        }
+    }
 }
+
+// 二分查找 log2n 空间O(1)/Olog2n
+function efcz($arr, $low, $top, $target)
+{
+    if ($low <= $top) {
+        $mid = floor(($low + $top)/2);
+        if ($target > $arr[$mid]) {
+            return efcz($arr, $mid+1, $top, $target);
+        } elseif ($target < $arr[$mid]) {
+            return efcz($arr, $low, $mid-1, $target);
+        } else {
+            return $mid;
+        }
+    } else {
+        return -1;
+    }
+}
+
+// 非递归
+function efcz2($arr, $low, $top, $target)
+{
+    while ($low <= $top)
+    {
+        $mid = floor(($low + $top)/2);
+        if ($target > $arr[$mid]) {
+            $low = $mid + 1;
+        } elseif ($target < $arr[$mid]) {
+            $top = $mid - 1;
+        } else {
+           return $mid;
+        }
+    }
+    return -1;
+}
+// var_dump(sizeof($a), count($a));
+var_dump(efcz2($a, 0, sizeof($a), 10));
