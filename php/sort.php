@@ -122,6 +122,11 @@ class MergeSort
     {
         if ($left < $right) {
             $cet = floor(($left+$right)/2);
+            $this->mSort($arr, $left, $cet);
+            $this->mSort($arr, $cet + 1, $right);
+            $this->mergeArray($arr, $left, $cet, $right);
         }
     }
+
+    
 }
